@@ -2,6 +2,26 @@
 //console.log("Connected");
 showNotes();
 
+// Date and Time code
+let d = new Date();
+document.getElementById("todayDate").innerHTML = d.getDate() + "/" + d.getMinutes() + "/" + d.getFullYear();
+
+function clock() {
+
+    var hr = new Date().getHours();
+    var mi = new Date().getMinutes();
+    var sc = new Date().getSeconds();
+    var ampm = hr >= 12 ? 'pm' : 'am';
+    hr = hr % 12;
+    hr = hr < 10 ? '0' + hr : hr;
+    mi = mi < 10 ? '0' + mi : mi;
+    sc = sc < 10 ? '0' + sc : sc;
+    var show = hr + ":" + mi + ":" + sc + " " + ampm;
+
+    document.getElementById("showTime").innerHTML = show;
+}
+var interval = setInterval(clock, 500);
+
 
 //if user add a note this will add it into LocalStorage
 let addBtn = document.getElementById("addBtn");
@@ -19,8 +39,8 @@ addBtn.addEventListener("click", function (e) {
     }
 
     let myObj = {
-        title:addTitle.value,
-        text:addTxt.value
+        title: addTitle.value,
+        text: addTxt.value
     }
 
     notesObj.push(myObj);
@@ -33,6 +53,7 @@ addBtn.addEventListener("click", function (e) {
 
 // This function is to show elements from the local stroage 
 function showNotes() {
+
     let notes = localStorage.getItem("notes");
     var notesObj;
     if (notes == null) {
@@ -42,11 +63,11 @@ function showNotes() {
         notesObj = JSON.parse(notes);
     }
     let html = "";
-    notesObj.forEach(function (element, index) {
+    notesObj.forEach(function (element, index, fullDate) {
         html += `
         <div class="noteCard my-2 mx-2 card" style="width: 18rem;">
                 <div class="card-body">
-                  <h5 class="card-title"> ${element.title}</h5>
+                  <h5 class="card-title"> ${element.title} </h5>
                   <p class="card-text">${element.text}</p>
                   <button id = ${index} onclick="deleteNote(this.id)"  class="btn btn-primary">Delete Note</button>
                 </div>

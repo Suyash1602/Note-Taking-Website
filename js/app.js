@@ -4,7 +4,8 @@ showNotes();
 
 // Date and Time code
 let d = new Date();
-document.getElementById("todayDate").innerHTML = d.getDate() + "/" + d.getMonth() + "/" + d.getFullYear();
+let month = d.getMonth() + 1;
+document.getElementById("todayDate").innerHTML = d.getDate() + "/" + month + "/" + d.getFullYear();
 
 function clock() {
 
